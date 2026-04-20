@@ -8,15 +8,12 @@ interface ActionBarProps {
 }
 /**
  * Quick-action bar for tap-based interaction.
- * Derives available actions from GameState via deriveGameViewModel.
- * Hidden when the game is not waiting for a normal command (e.g. during
- * disambiguation, character input, or while the game is running).
  *
- * Primary row: Inv + direction exits + Take + Examine + "..."
- * "Take" expands: "All" + individual takeable room objects
- * "Examine" expands: room objects (Here) + inventory objects (Carrying)
- * "..." expands: Look, Wait, Drop, Save, Restore, Restart
- * "Drop" (inside "...") expands: "All" + individual inventory items
+ * Layout: action buttons on the left, 3x3 compass rose + vertical
+ * directions on the right. Inactive compass directions are always
+ * shown but dimmed. The center cell is a Look button (eye icon).
+ *
+ * Toggle buttons expand panels below: Take, Examine, and "..." (more).
  */
 export declare function ActionBar({ gameState, inputRequest, recentOutput, onSubmit }: ActionBarProps): React.ReactElement | null;
 export {};
