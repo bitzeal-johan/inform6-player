@@ -46,30 +46,30 @@ const labelStyle = {
   userSelect: "none",
   flex: "0 0 auto"
 };
-const COMPASS_GRID = [
-  { label: "NW", prop: "nw_to", command: "northwest" },
-  { label: "N", prop: "n_to", command: "north" },
-  { label: "NE", prop: "ne_to", command: "northeast" },
-  { label: "W", prop: "w_to", command: "west" },
-  { label: "", prop: "", command: "look" },
-  // center = Look
-  { label: "E", prop: "e_to", command: "east" },
-  { label: "SW", prop: "sw_to", command: "southwest" },
-  { label: "S", prop: "s_to", command: "south" },
-  { label: "SE", prop: "se_to", command: "southeast" }
-];
-const VERTICAL_DIRS = [
-  { label: "U", prop: "u_to", command: "up" },
-  { label: "D", prop: "d_to", command: "down" },
-  { label: "In", prop: "in_to", command: "in" },
-  { label: "Out", prop: "out_to", command: "out" }
+const GRID_4X4 = [
+  { kind: "direction", label: "NW", prop: "nw_to", command: "northwest" },
+  { kind: "direction", label: "N", prop: "n_to", command: "north" },
+  { kind: "direction", label: "NE", prop: "ne_to", command: "northeast" },
+  { kind: "direction", label: "U", prop: "u_to", command: "up" },
+  { kind: "direction", label: "W", prop: "w_to", command: "west" },
+  { kind: "look", label: "\u{1F441}", prop: "", command: "look" },
+  { kind: "direction", label: "E", prop: "e_to", command: "east" },
+  { kind: "direction", label: "D", prop: "d_to", command: "down" },
+  { kind: "direction", label: "SW", prop: "sw_to", command: "southwest" },
+  { kind: "direction", label: "S", prop: "s_to", command: "south" },
+  { kind: "direction", label: "SE", prop: "se_to", command: "southeast" },
+  { kind: "empty", label: "", prop: "", command: "" },
+  { kind: "direction", label: "In", prop: "in_to", command: "in" },
+  { kind: "direction", label: "Out", prop: "out_to", command: "out" },
+  { kind: "empty", label: "", prop: "", command: "" },
+  { kind: "examine", label: "\u{1F50D}", prop: "", command: "" }
 ];
 const COMPASS_CELL = 40;
 const COMPASS_GAP = 3;
 const compassGridStyle = {
   display: "grid",
-  gridTemplateColumns: `repeat(3, ${COMPASS_CELL}px)`,
-  gridTemplateRows: `repeat(3, ${COMPASS_CELL}px)`,
+  gridTemplateColumns: `repeat(4, ${COMPASS_CELL}px)`,
+  gridTemplateRows: `repeat(4, ${COMPASS_CELL}px)`,
   gap: `${COMPASS_GAP}px`,
   flexShrink: 0
 };
@@ -77,7 +77,6 @@ const compassCellBase = {
   fontFamily: UI_FONT,
   fontSize: "12px",
   lineHeight: "1",
-  border: "1px solid #555",
   borderRadius: "4px",
   cursor: "pointer",
   textAlign: "center",
@@ -99,69 +98,45 @@ const compassInactive = {
   border: "1px solid #333",
   cursor: "default"
 };
-const compassCenter = {
+const compassAlwaysActive = {
   ...compassCellBase,
   backgroundColor: "#555",
   color: "#ccc",
   border: "1px solid #666",
   fontSize: "18px"
 };
-const verticalDirStyle = {
-  ...compassCellBase,
-  backgroundColor: "#555",
-  color: "#ccc",
-  border: "1px solid #666",
-  width: `${COMPASS_CELL}px`,
-  height: `${COMPASS_CELL}px`
-};
-const verticalDirInactive = {
-  ...compassCellBase,
-  backgroundColor: "#2a2a2a",
-  color: "#444",
-  border: "1px solid #333",
-  cursor: "default",
-  width: `${COMPASS_CELL}px`,
-  height: `${COMPASS_CELL}px`
+const compassEmpty = {
+  visibility: "hidden"
 };
 function CompassRose({
   activeExits,
-  onSubmit
+  onSubmit,
+  onExamine
 }) {
-  return /* @__PURE__ */ jsxs("div", { style: { display: "flex", gap: `${COMPASS_GAP}px` }, children: [
-    /* @__PURE__ */ jsx("div", { style: compassGridStyle, children: COMPASS_GRID.map((cell, i) => {
-      if (i === 4) {
-        return /* @__PURE__ */ jsx("button", { type: "button", style: compassCenter, onClick: () => onSubmit("look"), title: "Look", children: "\u{1F441}" }, "look");
-      }
-      const active = activeExits.has(cell.prop);
-      return /* @__PURE__ */ jsx(
-        "button",
-        {
-          type: "button",
-          style: active ? compassActive : compassInactive,
-          onClick: active ? () => onSubmit(cell.command) : void 0,
-          disabled: !active,
-          title: active ? cell.command : void 0,
-          children: cell.label
-        },
-        cell.prop
-      );
-    }) }),
-    /* @__PURE__ */ jsx("div", { style: { display: "flex", flexDirection: "column", gap: `${COMPASS_GAP}px` }, children: VERTICAL_DIRS.map((dir) => {
-      const active = activeExits.has(dir.prop);
-      return /* @__PURE__ */ jsx(
-        "button",
-        {
-          type: "button",
-          style: active ? verticalDirStyle : verticalDirInactive,
-          onClick: active ? () => onSubmit(dir.command) : void 0,
-          disabled: !active,
-          title: active ? dir.command : void 0,
-          children: dir.label
-        },
-        dir.prop
-      );
-    }) })
-  ] });
+  return /* @__PURE__ */ jsx("div", { style: compassGridStyle, children: GRID_4X4.map((cell, i) => {
+    if (cell.kind === "empty") {
+      return /* @__PURE__ */ jsx("div", { style: compassEmpty }, i);
+    }
+    if (cell.kind === "look") {
+      return /* @__PURE__ */ jsx("button", { type: "button", style: compassAlwaysActive, onClick: () => onSubmit("look"), title: "Look", children: cell.label }, "look");
+    }
+    if (cell.kind === "examine") {
+      return /* @__PURE__ */ jsx("button", { type: "button", style: compassAlwaysActive, onClick: onExamine, title: "Examine", children: cell.label }, "examine");
+    }
+    const active = activeExits.has(cell.prop);
+    return /* @__PURE__ */ jsx(
+      "button",
+      {
+        type: "button",
+        style: active ? compassActive : compassInactive,
+        onClick: active ? () => onSubmit(cell.command) : void 0,
+        disabled: !active,
+        title: active ? cell.command : void 0,
+        children: cell.label
+      },
+      cell.prop
+    );
+  }) });
 }
 function ActionButton({ label, onClick }) {
   return /* @__PURE__ */ jsx("button", { type: "button", style: buttonStyle, onClick, children: label });
@@ -219,15 +194,6 @@ function ActionBar({ gameState, inputRequest, recentOutput, onSubmit }) {
                 children: "Take"
               }
             ),
-            hasTargets && /* @__PURE__ */ jsx(
-              "button",
-              {
-                type: "button",
-                style: expanded === "examine" ? toggleActiveStyle : toggleStyle,
-                onClick: () => togglePanel("examine"),
-                children: "Examine"
-              }
-            ),
             /* @__PURE__ */ jsx(
               "button",
               {
@@ -239,7 +205,7 @@ function ActionBar({ gameState, inputRequest, recentOutput, onSubmit }) {
               }
             )
           ] }),
-          /* @__PURE__ */ jsx(CompassRose, { activeExits, onSubmit: submit })
+          /* @__PURE__ */ jsx(CompassRose, { activeExits, onSubmit: submit, onExamine: () => togglePanel("examine") })
         ] }),
         expanded === "take" && /* @__PURE__ */ jsxs("div", { style: sectionStyle, children: [
           /* @__PURE__ */ jsx(ActionButton, { label: "All", onClick: () => submit("take all") }),
