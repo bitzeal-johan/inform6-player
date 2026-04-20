@@ -144,6 +144,7 @@ function ActionBar({ gameState, inputRequest, recentOutput, onSubmit }) {
               children: "Drop"
             }
           ),
+          /* @__PURE__ */ jsx(ActionButton, { label: "Undo", onClick: () => submit("undo") }),
           /* @__PURE__ */ jsx(ActionButton, { label: "Save", onClick: () => submit("save") }),
           /* @__PURE__ */ jsx(ActionButton, { label: "Restore", onClick: () => submit("restore") }),
           /* @__PURE__ */ jsx(ActionButton, { label: "Restart", onClick: () => submit("restart") })
