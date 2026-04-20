@@ -1,6 +1,7 @@
 export { GamePlayer, type GamePlayerProps } from './components/game-player.js';
 export { GameScreen } from './components/game-screen.js';
 export { ActionBar } from './components/action-bar.js';
+export { StatusBar } from './components/status-bar.js';
 export { type GameModule } from './types/game-module.js';
 export { type TerminalConfig, type TerminalBreakpoint, type TerminalProfile, type ResolvedTerminal, } from './types/terminal-config.js';
 export { type StyleOverrides } from './types/style-overrides.js';

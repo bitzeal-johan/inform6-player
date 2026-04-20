@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { StatusBar } from "./status-bar.js";
 import { Transcript } from "./transcript.js";
 import { CharInput } from "./char-input.js";
-function GameScreen({ engine, terminal, styleOverrides }) {
+function GameScreen({ engine, terminal, styleOverrides, hideStatusBar }) {
   const { status, transcript, statusGrid, inputRequest, error, submitLine, submitChar } = engine;
   const inputRef = useRef(null);
   function handleContainerClick() {
@@ -26,7 +26,7 @@ function GameScreen({ engine, terminal, styleOverrides }) {
       onClick: handleContainerClick,
       style: { display: "flex", flexDirection: "column", height: "100%" },
       children: [
-        /* @__PURE__ */ jsx(StatusBar, { grid: statusGrid, rowHeightPx: terminal.rowHeightPx, styleOverrides }),
+        !hideStatusBar && /* @__PURE__ */ jsx(StatusBar, { grid: statusGrid, rowHeightPx: terminal.rowHeightPx, styleOverrides }),
         /* @__PURE__ */ jsx(
           Transcript,
           {

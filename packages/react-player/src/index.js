@@ -1,6 +1,7 @@
 import { GamePlayer } from "./components/game-player.js";
 import { GameScreen } from "./components/game-screen.js";
 import { ActionBar } from "./components/action-bar.js";
+import { StatusBar } from "./components/status-bar.js";
 import { useGameEngine } from "./hooks/use-game-engine.js";
 import { useTerminal, resolveTerminal } from "./hooks/use-terminal.js";
 import { ReactGameIO } from "./io/react-game-io.js";
@@ -16,6 +17,7 @@ export {
   ReactGlk,
   SLOT_AUTO,
   SLOT_MANUAL_DEFAULT,
+  StatusBar,
   createGameStore,
   resolveTerminal,
   useGameEngine,

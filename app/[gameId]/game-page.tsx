@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import {
   GameScreen,
+  StatusBar,
   ActionBar,
   useGameEngine,
   useTerminal,
@@ -101,14 +102,17 @@ interface GameInnerProps {
 
 function GameInner({ game, gameId, terminal, styleOverrides }: GameInnerProps) {
   const engine = useGameEngine(game, gameId, terminal);
-  const hideButtons = useFinePointerOnly();
+  const showButtons = !useFinePointerOnly();
 
   return (
     <div style={{ flex: '1 1 0', minWidth: 0, height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, minHeight: 0 }}>
-        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} />
+        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} hideStatusBar={showButtons} />
       </div>
-      {!hideButtons && engine.gameState !== null && engine.status === 'waitingForInput' && (
+      {showButtons && (
+        <StatusBar grid={engine.statusGrid} rowHeightPx={terminal.rowHeightPx} styleOverrides={styleOverrides} />
+      )}
+      {showButtons && engine.gameState !== null && engine.status === 'waitingForInput' && (
         <ActionBar
           gameState={engine.gameState}
           inputRequest={engine.inputRequest}
