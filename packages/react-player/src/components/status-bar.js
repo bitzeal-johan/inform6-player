@@ -7,6 +7,9 @@ function StatusBar({ grid, rowHeightPx, styleOverrides }) {
     "div",
     {
       style: {
+        position: "sticky",
+        top: 0,
+        zIndex: 1,
         height: `${height}px`,
         overflow: "hidden",
         fontFamily: "var(--if-font-family)",
