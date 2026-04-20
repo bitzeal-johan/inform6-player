@@ -1,0 +1,14 @@
+{
+  "name": "@inform6sharp/react-player",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "dependencies": {
+    "@inform6sharp/game-runner": "file:../game-runner"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

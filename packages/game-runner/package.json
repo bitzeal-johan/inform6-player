@@ -1,0 +1,7 @@
+{
+  "name": "@inform6sharp/game-runner",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts"
+}
