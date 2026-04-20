@@ -22,7 +22,7 @@ export function GamePage({ gameId }: GamePageProps) {
   if (!descriptor) throw new Error(`Unknown game: ${gameId}`);
 
   return (
-    <main style={{ display: 'flex', height: '100vh', margin: '0 auto', maxWidth: '1400px' }}>
+    <main style={{ display: 'flex', height: '100dvh', margin: '0 auto', maxWidth: '1400px' }}>
       <div style={{ flex: '1 1 0', minWidth: 0, height: '100%' }}>
         <GamePlayerWithState
           game={descriptor.game}

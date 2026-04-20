@@ -1,7 +1,11 @@
 import type { GameModule, StyleOverrides, TerminalConfig } from '@inform6sharp/react-player';
 import { RETRO_TERMINAL_CONFIG } from '@inform6sharp/themes';
-import { Game as Advent } from '../app/games/advent.js';
-import { Game as Devours } from '../app/games/devours.js';
+import { Game as AdventRaw } from '../app/games/advent.js';
+import { Game as DevoursRaw } from '../app/games/devours.js';
+
+// Compiled games may not yet export `version`. Shim until recompiled.
+const Advent = AdventRaw as unknown as GameModule;
+const Devours = DevoursRaw as unknown as GameModule;
 
 export interface GameDescriptor {
   readonly gameId: string;
