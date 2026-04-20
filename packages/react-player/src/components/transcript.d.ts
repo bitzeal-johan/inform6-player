@@ -8,6 +8,7 @@ interface TranscriptProps {
     readonly onSubmitLine: (input: string) => void;
     readonly inputRef: React.RefObject<HTMLInputElement>;
     readonly styleOverrides?: StyleOverrides;
+    readonly autoFocusInput?: boolean;
 }
 /**
  * Scrollable text output area showing game transcript.
@@ -26,5 +27,5 @@ interface TranscriptProps {
  *
  * Auto-scrolls to the bottom on new entries.
  */
-export declare function Transcript({ entries, inputRequest, onSubmitLine, inputRef, styleOverrides, }: TranscriptProps): React.ReactElement;
+export declare function Transcript({ entries, inputRequest, onSubmitLine, inputRef, styleOverrides, autoFocusInput, }: TranscriptProps): React.ReactElement;
 export {};

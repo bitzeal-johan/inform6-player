@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { StatusBar } from "./status-bar.js";
 import { Transcript } from "./transcript.js";
 import { CharInput } from "./char-input.js";
-function GameScreen({ engine, terminal, styleOverrides, hideStatusBar }) {
+function GameScreen({ engine, terminal, styleOverrides, hideStatusBar, autoFocusInput = true }) {
   const { status, transcript, statusGrid, inputRequest, error, submitLine, submitChar } = engine;
   const inputRef = useRef(null);
   function handleContainerClick() {
@@ -34,7 +34,8 @@ function GameScreen({ engine, terminal, styleOverrides, hideStatusBar }) {
             inputRequest,
             onSubmitLine: submitLine,
             inputRef,
-            styleOverrides
+            styleOverrides,
+            autoFocusInput
           }
         ),
         /* @__PURE__ */ jsx(CharInput, { active: inputRequest.kind === "char", onChar: submitChar }),

@@ -1,12 +1,13 @@
 import { jsx } from "react/jsx-runtime";
 import React, { useState, useEffect } from "react";
 const LineInput = React.forwardRef(
-  function LineInput2({ onSubmit }, ref) {
+  function LineInput2({ onSubmit, autoFocus = true }, ref) {
     const [value, setValue] = useState("");
     useEffect(() => {
+      if (!autoFocus) return;
       if (typeof ref === "function") return;
       ref?.current?.focus();
-    }, [ref]);
+    }, [ref, autoFocus]);
     function handleSubmit(e) {
       e.preventDefault();
       const trimmed = value.trimEnd();

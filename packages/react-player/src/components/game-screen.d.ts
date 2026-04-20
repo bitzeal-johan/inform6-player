@@ -7,6 +7,7 @@ interface GameScreenProps {
     readonly terminal: ResolvedTerminal;
     readonly styleOverrides?: StyleOverrides;
     readonly hideStatusBar?: boolean;
+    readonly autoFocusInput?: boolean;
 }
 /**
  * Layout composition: status bar (top) + transcript (fills remaining).
@@ -17,5 +18,5 @@ interface GameScreenProps {
  * Clicking anywhere in the game view focuses the inline input, unless the
  * user is in the middle of selecting text (collapsed-selection check).
  */
-export declare function GameScreen({ engine, terminal, styleOverrides, hideStatusBar }: GameScreenProps): React.ReactElement;
+export declare function GameScreen({ engine, terminal, styleOverrides, hideStatusBar, autoFocusInput }: GameScreenProps): React.ReactElement;
 export {};

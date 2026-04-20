@@ -1,6 +1,7 @@
 import React from 'react';
 interface LineInputProps {
     readonly onSubmit: (input: string) => void;
+    readonly autoFocus?: boolean;
 }
 /**
  * Inline text input for line-mode input. Rendered at the end of the

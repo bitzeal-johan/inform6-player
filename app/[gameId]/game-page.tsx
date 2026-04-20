@@ -107,7 +107,7 @@ function GameInner({ game, gameId, terminal, styleOverrides }: GameInnerProps) {
   return (
     <div style={{ flex: '1 1 0', minWidth: 0, height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, minHeight: 0 }}>
-        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} hideStatusBar={showButtons} />
+        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} hideStatusBar={showButtons} autoFocusInput={!showButtons} />
       </div>
       {showButtons && (
         <StatusBar grid={engine.statusGrid} rowHeightPx={terminal.rowHeightPx} styleOverrides={styleOverrides} />

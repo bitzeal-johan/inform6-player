@@ -13,7 +13,8 @@ function Transcript({
   inputRequest,
   onSubmitLine,
   inputRef,
-  styleOverrides
+  styleOverrides,
+  autoFocusInput = true
 }) {
   const bottomRef = useRef(null);
   useEffect(() => {
@@ -42,7 +43,7 @@ function Transcript({
           }
           return /* @__PURE__ */ jsx(React.Fragment, { children: entry.runs.map((run, runIdx) => /* @__PURE__ */ jsx("span", { style: styleToCss(run.style, styleOverrides), children: run.text }, runIdx)) }, entryIdx);
         }),
-        inputRequest.kind === "line" && /* @__PURE__ */ jsx(LineInput, { ref: inputRef, onSubmit: onSubmitLine }),
+        inputRequest.kind === "line" && /* @__PURE__ */ jsx(LineInput, { ref: inputRef, onSubmit: onSubmitLine, autoFocus: autoFocusInput }),
         inputRequest.kind === "char" && /* @__PURE__ */ jsx("span", { style: { fontStyle: "italic", opacity: 0.7 }, children: "(press any key)" }),
         /* @__PURE__ */ jsx("div", { ref: bottomRef })
       ]
