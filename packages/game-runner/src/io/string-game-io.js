@@ -252,6 +252,7 @@ class StringGameIO {
     }
     const restored = this._undoStack.pop();
     this._justRestored = true;
+    this._inputQueue.unshift("look");
     return [restored, 0];
   }
   setIOSys(_mode, _rock) {

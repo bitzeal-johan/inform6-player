@@ -179,6 +179,7 @@ class ReactGameIO {
     }
     const restored = this._undoStack.pop();
     this._justRestored = true;
+    this._inputQueue.unshift("look");
     return [restored, 0];
   }
   // --- Glk subsystem ---
