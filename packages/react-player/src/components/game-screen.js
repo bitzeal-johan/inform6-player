@@ -3,12 +3,13 @@ import { useRef } from "react";
 import { StatusBar } from "./status-bar.js";
 import { Transcript } from "./transcript.js";
 import { CharInput } from "./char-input.js";
-function GameScreen({ engine, terminal, styleOverrides, hideStatusBar, autoFocusInput = true }) {
+function GameScreen({ engine, terminal, styleOverrides, hideStatusBar, autoFocusInput = true, actionBarRef }) {
   const { status, transcript, statusGrid, inputRequest, error, submitLine, submitChar } = engine;
   const inputRef = useRef(null);
   function handleContainerClick() {
     const selection = window.getSelection();
     if (selection !== null && !selection.isCollapsed) return;
+    actionBarRef?.current?.dismiss();
     inputRef.current?.focus();
   }
   if (status === "error") {
