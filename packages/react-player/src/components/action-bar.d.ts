@@ -17,7 +17,8 @@ interface ActionBarProps {
  * Both blocks share the same cell size and gap.
  *
  * **Panel view:** When a toggle is tapped, both blocks are replaced
- * by a full-width vertical item list.  Dismissed by tapping transcript.
+ * by a full-width vertical item list.  Dismissed via the panel's Back
+ * row or by tapping the transcript (requires wiring `actionBarRef`).
  */
 export declare const ActionBar: React.ForwardRefExoticComponent<ActionBarProps & React.RefAttributes<ActionBarRef>>;
 export {};

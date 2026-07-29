@@ -197,6 +197,7 @@ function classCreate(state, className) {
     number: newNum,
     shortName: classDef.shortName,
     className: lowerClassName,
+    nameWords: classDef.nameWords,
     initialProperties: classDef.initialProperties,
     initialAttributes: classDef.initialAttributes,
     providedProperties: classDef.providedProperties,

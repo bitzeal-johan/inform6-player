@@ -7,6 +7,7 @@ import {
   ActionBar,
   useGameEngine,
   useTerminal,
+  type ActionBarRef,
   type GameModule,
   type TerminalConfig,
   type ResolvedTerminal,
@@ -103,17 +104,19 @@ interface GameInnerProps {
 function GameInner({ game, gameId, terminal, styleOverrides }: GameInnerProps) {
   const engine = useGameEngine(game, gameId, terminal);
   const showButtons = !useFinePointerOnly();
+  const actionBarRef = useRef<ActionBarRef>(null);
 
   return (
     <div style={{ flex: '1 1 0', minWidth: 0, height: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, minHeight: 0 }}>
-        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} hideStatusBar={showButtons} autoFocusInput={!showButtons} />
+        <GameScreen engine={engine} terminal={terminal} styleOverrides={styleOverrides} hideStatusBar={showButtons} autoFocusInput={!showButtons} actionBarRef={actionBarRef} />
       </div>
       {showButtons && (
         <StatusBar grid={engine.statusGrid} rowHeightPx={terminal.rowHeightPx} styleOverrides={styleOverrides} />
       )}
       {showButtons && engine.gameState !== null && engine.status === 'waitingForInput' && (
         <ActionBar
+          ref={actionBarRef}
           gameState={engine.gameState}
           inputRequest={engine.inputRequest}
           recentOutput={engine.recentOutput}

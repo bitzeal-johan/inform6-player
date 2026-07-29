@@ -97,6 +97,9 @@ const compassGridStyle = {
 function ListItem({ label, onClick }) {
   return /* @__PURE__ */ jsx("button", { type: "button", style: listItemStyle, onClick, children: label });
 }
+function DismissItem({ label, onDismiss }) {
+  return /* @__PURE__ */ jsx("button", { type: "button", style: { ...disabledListItem, cursor: "pointer" }, onClick: onDismiss, children: label });
+}
 const ActionBar = forwardRef(
   function ActionBar2({ gameState, inputRequest, recentOutput, onSubmit }, ref) {
     const [expanded, setExpanded] = useState("none");
@@ -111,6 +114,7 @@ const ActionBar = forwardRef(
     const togglePanel = useCallback((panel) => {
       setExpanded((prev) => prev === panel ? "none" : panel);
     }, []);
+    const dismiss = useCallback(() => setExpanded("none"), []);
     useImperativeHandle(ref, () => ({
       dismiss() {
         setExpanded("none");
@@ -167,13 +171,17 @@ const ActionBar = forwardRef(
               })
             ] })
           ] }),
-          expanded === "take" && /* @__PURE__ */ jsx("div", { style: { display: "flex", flexDirection: "column", gap: "4px" }, children: vm.takeable.length > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
-            /* @__PURE__ */ jsx(ListItem, { label: "Take all", onClick: () => submit("take all") }),
-            vm.takeable.map((item) => /* @__PURE__ */ jsx(ListItem, { label: item.shortName, onClick: () => submit(`take ${item.shortName}`) }, item.objectNumber))
-          ] }) : /* @__PURE__ */ jsx("div", { style: disabledListItem, children: "Nothing to take here" }) }),
+          expanded === "take" && /* @__PURE__ */ jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
+            vm.takeable.length > 0 ? /* @__PURE__ */ jsxs(Fragment, { children: [
+              /* @__PURE__ */ jsx(ListItem, { label: "Take all", onClick: () => submit("take all") }),
+              vm.takeable.map((item) => /* @__PURE__ */ jsx(ListItem, { label: item.shortName, onClick: () => submit(`take ${item.parseName}`) }, item.objectNumber))
+            ] }) : /* @__PURE__ */ jsx(DismissItem, { label: "Nothing to take here", onDismiss: dismiss }),
+            /* @__PURE__ */ jsx(DismissItem, { label: "\u2715 Back", onDismiss: dismiss })
+          ] }),
           expanded === "drop" && /* @__PURE__ */ jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
             /* @__PURE__ */ jsx(ListItem, { label: "Drop all", onClick: () => submit("drop all") }),
-            vm.droppable.map((item) => /* @__PURE__ */ jsx(ListItem, { label: item.shortName, onClick: () => submit(`drop ${item.shortName}`) }, item.objectNumber))
+            vm.droppable.map((item) => /* @__PURE__ */ jsx(ListItem, { label: item.shortName, onClick: () => submit(`drop ${item.parseName}`) }, item.objectNumber)),
+            /* @__PURE__ */ jsx(DismissItem, { label: "\u2715 Back", onDismiss: dismiss })
           ] }),
           expanded === "examine" && /* @__PURE__ */ jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
             roomTargets.length > 0 && /* @__PURE__ */ jsxs(Fragment, { children: [
@@ -184,14 +192,16 @@ const ActionBar = forwardRef(
               /* @__PURE__ */ jsx("span", { style: listLabelStyle, children: "Carrying:" }),
               invTargets.map((target) => /* @__PURE__ */ jsx(ListItem, { label: target.shortName, onClick: () => submit(target.command) }, target.objectNumber))
             ] }),
-            roomTargets.length === 0 && invTargets.length === 0 && /* @__PURE__ */ jsx("div", { style: disabledListItem, children: "Nothing to examine" })
+            roomTargets.length === 0 && invTargets.length === 0 && /* @__PURE__ */ jsx(DismissItem, { label: "Nothing to examine", onDismiss: dismiss }),
+            /* @__PURE__ */ jsx(DismissItem, { label: "\u2715 Back", onDismiss: dismiss })
           ] }),
           expanded === "more" && /* @__PURE__ */ jsxs("div", { style: { display: "flex", flexDirection: "column", gap: "4px" }, children: [
             /* @__PURE__ */ jsx(ListItem, { label: "Wait", onClick: () => submit("z") }),
             /* @__PURE__ */ jsx(ListItem, { label: "Undo", onClick: () => submit("undo") }),
             /* @__PURE__ */ jsx(ListItem, { label: "Save", onClick: () => submit("save") }),
             /* @__PURE__ */ jsx(ListItem, { label: "Restore", onClick: () => submit("restore") }),
-            /* @__PURE__ */ jsx(ListItem, { label: "Restart", onClick: () => submit("restart") })
+            /* @__PURE__ */ jsx(ListItem, { label: "Restart", onClick: () => submit("restart") }),
+            /* @__PURE__ */ jsx(DismissItem, { label: "\u2715 Back", onDismiss: dismiss })
           ] })
         ]
       }

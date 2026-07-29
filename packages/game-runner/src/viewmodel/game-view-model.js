@@ -64,11 +64,13 @@ function collectTargets(state, containerId, location, classHierarchy, playerId) 
     if (classHierarchy.has(childId.toLowerCase())) continue;
     if (state.treeState.hasAttribute(childId, "concealed")) continue;
     if (childDef.shortName === "") continue;
+    const parseName = childDef.nameWords[0] ?? childDef.shortName;
     targets.push({
       objectNumber: childDef.number,
       objectId: childDef.id,
       shortName: childDef.shortName,
-      command: `examine ${childDef.shortName}`,
+      parseName,
+      command: `examine ${parseName}`,
       location
     });
   }
@@ -111,7 +113,8 @@ function deriveTakeable(state) {
     items.push({
       objectNumber: childDef.number,
       objectId: childDef.id,
-      shortName: childDef.shortName
+      shortName: childDef.shortName,
+      parseName: childDef.nameWords[0] ?? childDef.shortName
     });
   }
   return items;
@@ -130,7 +133,8 @@ function deriveDroppable(state) {
     items.push({
       objectNumber: childDef.number,
       objectId: childDef.id,
-      shortName: childDef.shortName
+      shortName: childDef.shortName,
+      parseName: childDef.nameWords[0] ?? childDef.shortName
     });
   }
   return items;

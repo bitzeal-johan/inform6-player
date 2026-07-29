@@ -13,6 +13,7 @@ export interface ExaminableTarget {
     readonly objectNumber: number;
     readonly objectId: string;
     readonly shortName: string;
+    readonly parseName: string;
     readonly command: string;
     readonly location: TargetLocation;
 }
@@ -20,6 +21,7 @@ export interface InventoryItem {
     readonly objectNumber: number;
     readonly objectId: string;
     readonly shortName: string;
+    readonly parseName: string;
 }
 export interface GameViewModel {
     readonly inputContext: InputContext;

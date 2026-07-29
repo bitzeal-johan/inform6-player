@@ -8,6 +8,7 @@ export interface ObjectDefinition {
     readonly number: number;
     readonly shortName: string;
     readonly className: string | null;
+    readonly nameWords: readonly string[];
     readonly initialProperties: ReadonlyMap<string, PropertyValue>;
     readonly initialAttributes: ReadonlySet<string>;
     readonly providedProperties: ReadonlySet<string>;
