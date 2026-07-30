@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 The generated code is committed, so the app builds and runs as-is.
 Regenerating it (`npm run vendor`, `npm run compile:game`) requires the
-Inform6Sharp compiler toolchain checked out at `../inform6-react`, which is
+Inform6Sharp compiler toolchain checked out at `../inform6-csharp`, which is
 not public. Without it, edit the player via the vendored sources in
 `packages/` at your own risk — changes there are overwritten by the next
 vendor run.

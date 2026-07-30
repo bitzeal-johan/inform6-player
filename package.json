@@ -7,8 +7,8 @@
     "build": "next build --webpack",
     "start": "next start",
     "vendor": "node scripts/vendor.mjs",
-    "compile:advent": "dotnet run --project ../inform6-react/tools/CompileGame/CompileGame.csproj -- ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Advent.inf app/games/advent.ts --typescript ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Inform6Lib",
-    "compile:devours": "dotnet run --project ../inform6-react/tools/CompileGame/CompileGame.csproj -- ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Devours.inf app/games/devours.ts --typescript ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames ../inform6-react/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Inform6Lib",
+    "compile:advent": "dotnet run --project ../inform6-csharp/tools/CompileGame/CompileGame.csproj -- ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Advent.inf app/games/advent.ts --typescript ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Inform6Lib",
+    "compile:devours": "dotnet run --project ../inform6-csharp/tools/CompileGame/CompileGame.csproj -- ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Devours.inf app/games/devours.ts --typescript ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames ../inform6-csharp/tests/compiler/Inform6Sharp.Compiler.Tests/RealGames/Inform6Lib",
     "compile:game": "npm run vendor && npm run compile:advent && npm run compile:devours"
   },
   "dependencies": {

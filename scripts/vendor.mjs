@@ -7,7 +7,7 @@
  * and tsc --emitDeclarationOnly for .d.ts files where possible.
  *
  * Usage: npm run vendor
- * Requires: the inform6-react worktree at ../inform6-react
+ * Requires: the inform6-csharp checkout at ../inform6-csharp
  * (private toolchain — the committed packages/ output works without it)
  */
 import { execSync } from 'node:child_process';
@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = resolve(__dirname, '..');
-const sourceRoot = resolve(root, '../inform6-react/src/typescript');
+const sourceRoot = resolve(root, '../inform6-csharp/src/typescript');
 const packagesDir = resolve(root, 'packages');
 
 const packages = [
